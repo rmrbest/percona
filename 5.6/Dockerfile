@@ -24,7 +24,7 @@ RUN { \
 	} | debconf-set-selections \
 	&& apt-get update \
 	&& apt-get install -y \
-		percona-server-server-$PERCONA_MAJOR=$PERCONA_VERSION \
+		percona-server-server-$PERCONA_MAJOR=$PERCONA_VERSION autossh \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& rm -rf /var/lib/mysql \
 	&& mkdir /var/lib/mysql
