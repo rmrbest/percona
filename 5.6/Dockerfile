@@ -36,9 +36,11 @@ RUN sed -Ei 's/^(bind-address|log)/#&/' /etc/mysql/my.cnf \
 	&& mv /tmp/my.cnf /etc/mysql/my.cnf
 
 ADD my.cnf /etc/mysql/my.cnf
-ADD replication_start /usr/bin/
-ADD replication_master_sql /usr/bin/
-ADD init_tunnel /usr/bin/
+ADD my_salve.cnf /etc/mysql/my_slave.cnf
+
+#ADD replication_start /usr/bin/
+#ADD replication_master_sql /usr/bin/
+#ADD init_tunnel /usr/bin/
 
 VOLUME ["/var/lib/mysql", "/var/log/mysql"]
 
@@ -49,10 +51,10 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 EXPOSE 3306
 CMD ["mysqld"]
 
-RUN chmod 755 /usr/bin//replication_master_sql
-RUN chmod 755 /usr/bin/replication_start
-RUN chmod 755 /usr/bin/init_tunnel
+#RUN chmod 755 /usr/bin//replication_master_sql
+#RUN chmod 755 /usr/bin/replication_start
+#RUN chmod 755 /usr/bin/init_tunnel
 
-RUN init_tunnel
-RUN replication_master_sql
-RUN replication_start
+#RUN init_tunnel
+#RUN replication_master_sql
+#RUN replication_start
