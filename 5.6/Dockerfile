@@ -39,7 +39,7 @@ ADD my.cnf /etc/mysql/my.cnf
 
 ADD replication_start /usr/bin/
 
-ADD replication_master_start /usr/bin/
+ADD replication_master_sql /usr/bin/
 
 VOLUME ["/var/lib/mysql", "/var/log/mysql"]
 
