@@ -52,7 +52,7 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 EXPOSE 3306
 CMD ["mysqld"]
 
-RUN config_replication
+#RUN config_replication
 
 #RUN chmod 755 /usr/bin//replication_master_sql
 #RUN chmod 755 /usr/bin/replication_start
