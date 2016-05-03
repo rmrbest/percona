@@ -37,6 +37,10 @@ RUN sed -Ei 's/^(bind-address|log)/#&/' /etc/mysql/my.cnf \
 
 ADD my.cnf /etc/mysql/my.cnf
 
+ADD replication_start /usr/bin/
+
+ADD mysqld_with_init /usr/bin/
+
 VOLUME ["/var/lib/mysql", "/var/log/mysql"]
 
 COPY docker-entrypoint.sh /
