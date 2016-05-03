@@ -1,13 +1,13 @@
 #!bin/bash
 
 if [ "$REPLICATION" ]; then
-   if [ "$REPLICATION_NODE" eq "1" ]; then
+   if [ "$REPLICATION_NODE" -eq 1 ]; then
 cat > /tmp/start_replication.sql <<-EOF
     GRANT REPLICATION SLAVE ON *.* TO '$REPLICATION_SLAVE_USER'@'localhost' IDENTIFIED BY '$REPLICATION_SLAVE_PASSWORD';
 EOF
     mysql < /tmp/start_replication.sql
    fi
-    if [ "$REPLICATION_NODE" eq "2" ]; then
+    if [ "$REPLICATION_NODE" -eq 2 ]; then
         #override config slave
         mv /etc/my_slave.cnf /etc/my.cnf
 
