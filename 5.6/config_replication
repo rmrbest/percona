@@ -19,7 +19,7 @@ CHANGE MASTER TO MASTER_HOST='mysql', MASTER_USER='root', MASTER_PASSWORD='$MYSQ
 START SLAVE;
 EOF
     mysql -u root -p$MYSQL_ROOT_PASSWORD < /tmp/start_replication.sql
-    mysqld &
+    mysqld restart &
     fi
 fi
 
