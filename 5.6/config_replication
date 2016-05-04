@@ -13,7 +13,7 @@ EOF
 
 cat > /tmp/start_replication.sql <<-EOF
 STOP SLAVE;
-CHANGE MASTER TO MASTER_HOST='localhost', MASTER_USER='$REPLICATION_SLAVE_USER', MASTER_PASSWORD='$REPLICATION_SLAVE_PASSWORD', MASTER_PORT=3306, master_log_file='mysqld-bin.000001',master_log_pos=1787;
+CHANGE MASTER TO MASTER_HOST='mysql', MASTER_USER='root', MASTER_PASSWORD='$MYSQL_ROOT_PASSWORD', MASTER_PORT=3306, master_log_file='mysqld-bin.000001',master_log_pos=1787;
 START SLAVE;
 EOF
     mysql < /tmp/start_replication.sql
