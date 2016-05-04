@@ -10,10 +10,12 @@ EOF
     if [ "$REPLICATION_NODE" -eq 2 ]; then
         #override config slave
         mv /etc/mysql/my_slave.cnf /etc/mysql/my.cnf
-
+        mysql -u root -p$MYSQL_ROOT_PASSWORD -h 'mysql' -e 'show master status' | grep mysql > /tmp/master_data
+        export MASTER_LOG_FILE=$(cat /tmp/master_data | awk '{ print $1; }')
+        export MASTER_LOG_POS=$(cat /tmp/master_data | awk '{ print $2; }')
 cat > /tmp/start_replication.sql <<-EOF
 STOP SLAVE;
-CHANGE MASTER TO MASTER_HOST='mysql', MASTER_USER='root', MASTER_PASSWORD='$MYSQL_ROOT_PASSWORD', MASTER_PORT=3306, master_log_file='mysqld-bin.000001',master_log_pos=120;
+CHANGE MASTER TO MASTER_HOST='mysql', MASTER_USER='root', MASTER_PASSWORD='$MYSQL_ROOT_PASSWORD', MASTER_PORT=3306, master_log_file='$MASTER_LOG_FILE',master_log_pos='$MASTER_LOG_POS';
 START SLAVE;
 EOF
     mysql -u root -p$MYSQL_ROOT_PASSWORD < /tmp/start_replication.sql
