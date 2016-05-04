@@ -9,7 +9,7 @@ EOF
    fi
     if [ "$REPLICATION_NODE" -eq 2 ]; then
         #override config slave
-        mv /etc/my_slave.cnf /etc/my.cnf
+        mv /etc/mysql/my_slave.cnf /etc/mysql/my.cnf
 
 cat > /tmp/start_replication.sql <<-EOF
 STOP SLAVE;
