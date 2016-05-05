@@ -47,6 +47,9 @@ VOLUME ["/var/lib/mysql", "/var/log/mysql", "/opt/data/backup"]
 
 ADD docker-entrypoint.sh /usr/bin/docker-entrypoint
 RUN chmod 755 /usr/bin/docker-entrypoint
+ADD start_mysqld /usr/bin/start_mysqld
+RUN chmod 755 /usr/bin/start_mysqld
+
 
 ADD ./supervisord.conf /etc/supervisord.conf
 
