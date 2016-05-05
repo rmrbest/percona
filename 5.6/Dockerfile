@@ -48,10 +48,10 @@ VOLUME ["/var/lib/mysql", "/var/log/mysql", "/opt/data/backup"]
 COPY docker-entrypoint.sh /
 
 ADD ./supervisord.conf /etc/supervisord.conf
-ENTRYPOINT ["/docker-entrypoint.sh"]
+
 ADD ./start.sh /start.sh
 RUN chmod 755 /start.sh
-
+ENTRYPOINT ["/docker-entrypoint.sh"]
 EXPOSE 3306
 #CMD ["mysqld"]
 
