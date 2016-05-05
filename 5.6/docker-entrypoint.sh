@@ -17,7 +17,7 @@ for arg; do
 	esac
 done
 
-if [ "mysqld" = 'mysqld' -a -z "$wantHelp" ]; then
+if [ 'mysqld' = 'mysqld' -a -z "$wantHelp" ]; then
 	# Get config
 	DATADIR="$("$@" --verbose --help --log-bin-index=`mktemp -u` 2>/dev/null | awk '$1 == "datadir" { print $2; exit }')"
 
