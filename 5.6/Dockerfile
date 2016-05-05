@@ -45,7 +45,8 @@ RUN chmod 755 /usr/bin/config_replication
 
 VOLUME ["/var/lib/mysql", "/var/log/mysql", "/opt/data/backup"]
 
-COPY docker-entrypoint.sh /
+ADD docker-entrypoint.sh /usr/bin/docker-entrypoint
+RUN chmod 755 /usr/bin/docker-entrypoint
 
 ADD ./supervisord.conf /etc/supervisord.conf
 
