@@ -24,7 +24,7 @@ RUN { \
 	} | debconf-set-selections \
 	&& apt-get update \
 	&& apt-get install -y \
-		percona-server-server-$PERCONA_MAJOR=$PERCONA_VERSION supervisor \
+		percona-server-server-$PERCONA_MAJOR=$PERCONA_VERSION supervisor cron \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& rm -rf /var/lib/mysql \
 	&& mkdir /var/lib/mysql
