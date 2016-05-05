@@ -24,7 +24,7 @@ RUN { \
 	} | debconf-set-selections \
 	&& apt-get update \
 	&& apt-get install -y \
-		percona-server-server-$PERCONA_MAJOR=$PERCONA_VERSION autossh \
+		percona-server-server-$PERCONA_MAJOR=$PERCONA_VERSION supervisor \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& rm -rf /var/lib/mysql \
 	&& mkdir /var/lib/mysql
@@ -43,14 +43,18 @@ RUN chmod 755 /usr/bin/config_replication
 #ADD replication_master_sql /usr/bin/
 #ADD init_tunnel /usr/bin/
 
-VOLUME ["/var/lib/mysql", "/var/log/mysql"]
+VOLUME ["/var/lib/mysql", "/var/log/mysql", "/opt/data/backup"]
 
 COPY docker-entrypoint.sh /
 
+ADD ./supervisord.conf /etc/supervisord.conf
+ADD ./start_supervisod.sh /start.sh
+
+RUN chmod 755 /start.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 EXPOSE 3306
-CMD ["mysqld"]
+#CMD ["mysqld"]
 
 #RUN config_replication
 
