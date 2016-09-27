@@ -7,6 +7,11 @@ if [ "$REPLICATION" ]; then
    if [ "$REPLICATION_NODE" -eq 1 ]; then
 cat > /tmp/start_replication.sql <<-EOF
     GRANT REPLICATION SLAVE ON *.* TO '$REPLICATION_SLAVE_USER'@'localhost' IDENTIFIED BY '$REPLICATION_SLAVE_PASSWORD';
+    CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';
+    GRANT ALL PRIVILEGES ON \`$MYSQL_DATABASE\`.* TO '$MYSQL_USER'@'%';
+    CREATE USER reader@'%' IDENTIFIED BY '$MYSQL_PASSWORD';
+    GRANT SELECT PRIVILEGES ON \`$MYSQL_DATABASE\`.* TO reader@'%';
+    FLUSH PRIVILEGES;
 EOF
     mysql -u root -p$MYSQL_ROOT_PASSWORD < /tmp/start_replication.sql
    fi
